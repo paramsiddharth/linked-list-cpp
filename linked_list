@@ -1,0 +1,145 @@
+// Linked List
+
+#include <iostream>
+#include <cstdio>
+
+namespace Param {
+	template <class T>
+	class Node {
+		public:
+			T INFO;
+			Node<T>* NEXT;
+			Node(T info = 0, Node<T>* next = nullptr)
+				: INFO(info), NEXT(next) {}
+	};
+
+	template <class T>
+	class List {
+		private:
+			Node<T>* HEAD;
+		public:
+			List(Node<T>* head = nullptr)
+				: HEAD(head) {}
+			virtual ~List() {
+				Node<T>* temp;
+				while (HEAD != nullptr) {
+					temp = HEAD;
+					HEAD = HEAD->NEXT;
+					std::free(temp);
+				}
+			}
+			bool isEmpty() { return HEAD == nullptr; }
+			void insertEnd(T info) {
+				if (HEAD == nullptr)
+					HEAD = (Node<T>*)std::malloc(sizeof(Node<T>));
+				Node<T>* temp = HEAD;
+				while (temp->NEXT != nullptr)
+					temp = temp->NEXT;
+				temp->NEXT = (Node<T>*)std::malloc(sizeof(Node<T>));
+				temp->NEXT->NEXT = nullptr;
+				temp->NEXT->INFO = info;
+			}
+			void deleteEnd() {
+				if (HEAD != nullptr) {
+					Node<T>* temp = HEAD;
+					while (temp->NEXT != nullptr)
+						temp = temp->NEXT;
+					std::free(temp->NEXT);
+					temp->NEXT = nullptr;
+				}
+			}
+			void insertBeginning(T info) {
+				Node<T>* temp = (Node<T>*)std::malloc(sizeof(Node<T>));
+				temp->NEXT = HEAD;
+				temp->INFO = info;
+				HEAD = temp;
+			}
+			void deleteBeginning() {
+				if (HEAD != nullptr) {
+					Node<T>* temp = HEAD;
+					HEAD = HEAD->NEXT;
+					std::free(temp);
+				}
+			}
+			void insertIndex(T info, int index) {
+				if (HEAD == nullptr) {
+					Node<T>* temp = (Node<T>*)std::malloc(sizeof(Node<T>));
+					temp->NEXT = nullptr;
+					temp->INFO = info;
+				} else if (index == 0)
+						insertBeginning(info);
+				else {
+					Node<T>* temp = (Node<T>*)std::malloc(sizeof(Node<T>)),
+					       * current = HEAD,
+						   * previous = nullptr;
+					while (index > 0 && current->NEXT != nullptr) {
+						index--;
+						previous = current;
+						current = current->NEXT;
+					}
+					temp->INFO = info;
+					temp->NEXT = current;
+					previous->NEXT = temp;
+				}
+			}
+			void deleteIndex(int index) {
+				if (index == 0) 
+					deleteBeginning();
+				else {
+					Node<T>* temp  = HEAD,
+						   * previous = nullptr;
+					while (index > 0 && temp->NEXT != nullptr) {
+						index--;
+						temp = temp->NEXT;
+					}
+					previous->NEXT = temp->NEXT;
+					std::free(temp);
+				}
+			}
+			T& getIndex(int index) {
+				Node<T>* temp = HEAD,
+				       * previous = nullptr;
+				if (HEAD == nullptr) {
+					HEAD = (Node<T>*)malloc(sizeof(Node<T>));
+					HEAD->NEXT = nullptr;
+					return HEAD->INFO;
+				}
+				if (index == 0)
+					return HEAD->INFO;
+				while (index > 0 && temp != nullptr) {
+					index--;
+					previous = temp;
+					temp = temp->NEXT;
+				}
+				if (temp == nullptr) {
+					previous->NEXT = (Node<T>*)malloc(sizeof(Node<T>));
+					previous->NEXT->NEXT = nullptr;
+					return previous->NEXT->INFO;
+				}
+				return temp->INFO;
+			}
+			T& operator [](int index) { return getIndex(index); }
+			/* T operator []=(int index, T info) {
+				insertIndex(info, index);
+				return info;
+			} */
+			int size() {
+				int sizeValue = 0;
+				Node<T>* temp = HEAD;
+				while (temp != nullptr) {
+					temp = temp->NEXT;
+					sizeValue++;
+				}
+				return sizeValue;
+			}
+			void show() {
+				Node<T>* temp = HEAD;
+				std::cout << '<';
+				while (temp != nullptr) {
+					std::cout << ' ' << temp->INFO;
+					temp = temp->NEXT;
+				}
+				std::cout << " >" << std::endl;
+			}
+	};
+}
