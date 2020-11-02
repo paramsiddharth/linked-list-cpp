@@ -80,7 +80,7 @@ namespace Param {
 			}
 
 			// Insert at a specific index
-			void insertIndex(T info, int index) {
+			void insertIndex(int index, T info) {
 				if (HEAD == nullptr) {
 					Node<T>* temp = (Node<T>*)std::malloc(sizeof(Node<T>));
 					temp->NEXT = nullptr;
