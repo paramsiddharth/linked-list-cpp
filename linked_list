@@ -4,6 +4,8 @@
 #include <cstdio>
 
 namespace Param {
+
+	// Node class
 	template <class T>
 	class Node {
 		public:
@@ -13,13 +15,18 @@ namespace Param {
 				: INFO(info), NEXT(next) {}
 	};
 
+	// Linked list class
 	template <class T>
 	class List {
 		private:
+			// First node
 			Node<T>* HEAD;
 		public:
+			// Constructor
 			List(Node<T>* head = nullptr)
 				: HEAD(head) {}
+
+			// Destructor
 			virtual ~List() {
 				Node<T>* temp;
 				while (HEAD != nullptr) {
@@ -28,7 +35,11 @@ namespace Param {
 					std::free(temp);
 				}
 			}
+
+			// Check if list is empty
 			bool isEmpty() { return HEAD == nullptr; }
+
+			// Insert at the end of the list
 			void insertEnd(T info) {
 				if (HEAD == nullptr)
 					HEAD = (Node<T>*)std::malloc(sizeof(Node<T>));
@@ -39,6 +50,8 @@ namespace Param {
 				temp->NEXT->NEXT = nullptr;
 				temp->NEXT->INFO = info;
 			}
+
+			// Delete from the end of the list
 			void deleteEnd() {
 				if (HEAD != nullptr) {
 					Node<T>* temp = HEAD;
@@ -48,12 +61,16 @@ namespace Param {
 					temp->NEXT = nullptr;
 				}
 			}
+
+			// Insert at the beginning of the list
 			void insertBeginning(T info) {
 				Node<T>* temp = (Node<T>*)std::malloc(sizeof(Node<T>));
 				temp->NEXT = HEAD;
 				temp->INFO = info;
 				HEAD = temp;
 			}
+
+			// Delete from the beginning of the list
 			void deleteBeginning() {
 				if (HEAD != nullptr) {
 					Node<T>* temp = HEAD;
@@ -61,6 +78,8 @@ namespace Param {
 					std::free(temp);
 				}
 			}
+
+			// Insert at a specific index
 			void insertIndex(T info, int index) {
 				if (HEAD == nullptr) {
 					Node<T>* temp = (Node<T>*)std::malloc(sizeof(Node<T>));
@@ -82,6 +101,8 @@ namespace Param {
 					previous->NEXT = temp;
 				}
 			}
+
+			// Delete from a specific index
 			void deleteIndex(int index) {
 				if (index == 0) 
 					deleteBeginning();
@@ -96,6 +117,8 @@ namespace Param {
 					std::free(temp);
 				}
 			}
+
+			// Get the value at a particular index (returns reference to support assignment)
 			T& getIndex(int index) {
 				Node<T>* temp = HEAD,
 				       * previous = nullptr;
@@ -118,11 +141,11 @@ namespace Param {
 				}
 				return temp->INFO;
 			}
+
+			// Overload for the [] operator
 			T& operator [](int index) { return getIndex(index); }
-			/* T operator []=(int index, T info) {
-				insertIndex(info, index);
-				return info;
-			} */
+			
+			// Returns the size of the list
 			int size() {
 				int sizeValue = 0;
 				Node<T>* temp = HEAD;
@@ -132,6 +155,8 @@ namespace Param {
 				}
 				return sizeValue;
 			}
+
+			// Displays the list
 			void show() {
 				Node<T>* temp = HEAD;
 				std::cout << '<';
