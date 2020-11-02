@@ -1,5 +1,5 @@
 # Linked List
-A fully-functional implementation of a linked list.
+A fully-functional implementation of a linked list in C++.
 
 ## Usage
 The header file `linked_list` may simply be included to access `Param::List<T>`.
