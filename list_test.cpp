@@ -6,7 +6,7 @@
 
 int main() {
 	Param::List<int> list;
-	std::cout << BOLDBLUE << "Creating empty " << YELLOW << "Param::List" << BOLDBLUE << " object." << RESET << std::endl;
+	std::cout << BOLDBLUE << "Creating empty " << YELLOW << "Param::List<int>" << BOLDBLUE << " object." << RESET << std::endl;
 	std::cout << GREEN;
 	list.show();
 	std::cout << RESET;
