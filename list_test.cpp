@@ -1,4 +1,4 @@
-// List test
+// Testing the Linked List implementation
 
 #include <iostream>
 #include "linked_list"
@@ -11,7 +11,7 @@ int main() {
 	list.show();
 	std::cout << RESET;
 	std::cout << BOLDRED << "Empty? " << GREEN << (list.isEmpty() ? "Yes." : "No.") << RESET << std::endl;
-	std::cout << BOLDBLUE << "Appending values " << YELLOW << 1 << BOLDBLUE << " through " << YELLOW << 1 << BOLDBLUE << "..." << RESET << std::endl;
+	std::cout << BOLDBLUE << "Appending values " << YELLOW << 1 << BOLDBLUE << " through " << YELLOW << 10 << BOLDBLUE << "..." << RESET << std::endl;
 	for (int i = 0; i < 10; i++)
 		list[i] = i + 1;
 	std::cout << GREEN;

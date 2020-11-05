@@ -55,10 +55,9 @@ Properly cleans up the dynamically allocated memory previously occupied by the l
   Where 1, 2, 3, ..., n are the values stored in each of the nodes in the list.
 
 ## Testing
-Compile and execute `list_test.cpp`.
+Run `make test` using GNU Make.
 ``` bash
-g++ list_test -o list_test
-./list_test
+make test
 ```
 ![Test output](docs/test.png)
 
