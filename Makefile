@@ -10,6 +10,7 @@ ifeq ($(OS),Windows_NT)
 	delete-command := del
 endif
 
+.PHONY: test
 test:
 	@${compiler} ${sourcefile} ${outputflag} ${outfile}
 	@${exec-test}
