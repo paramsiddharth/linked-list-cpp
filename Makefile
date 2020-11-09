@@ -1,4 +1,16 @@
+compiler := g++
+sourcefile := list_test.cpp
+outputflag := -o
+outfile := test.out
+exec-test := ./${outfile}
+delete-command := rm
+ifeq ($(OS),Windows_NT)
+	outfile = test.exe
+	exec-test := ${outfile}
+	delete-command := del
+endif
+
 test:
-	g++ list_test.cpp -o test.out
-	./test.out
-	rm test.out
+	@${compiler} ${sourcefile} ${outputflag} ${outfile}
+	@${exec-test}
+	@${delete-command} ${outfile}
